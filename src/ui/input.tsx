@@ -190,11 +190,12 @@ export function ControlledNumberInput<T extends FieldValues>(props: ControlledIn
     };
 
     const handleBlur = () => {
-        if (parseFloat(field.value) === 0) {
+        const parsedAmount=reverseNumberFormat(field.value)
+        if (parsedAmount === 0) {
             field.onChange('')
             return
         }
-        const formattedValue = formatNumber(field.value);
+        const formattedValue = formatNumber(parsedAmount);
         field.onChange(formattedValue);
     };
 

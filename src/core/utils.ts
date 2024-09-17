@@ -51,7 +51,7 @@ export const clamp=(value: number, min: number, max: number): number=> {
 
 export const calculateFee=(amount:string): number=> {
   const stripedAmount=reverseNumberFormat(amount)
-  if( stripedAmount<20 && stripedAmount>0)
+  if( stripedAmount<=20 && stripedAmount>0)
   {
     return FEE_DISCOUNT
   }
@@ -77,4 +77,9 @@ export const calculateMaxAllowance = (balance: number): number => {
     return balance - FEE_CAP ;
   }
   return maxWithoutCap;
+};
+export const generateId = (): string => {
+  const prefix = '88';
+  const randomSegment = Math.floor(900000000000 + Math.random() * 100000000000);
+  return `${prefix}${randomSegment}`;
 };

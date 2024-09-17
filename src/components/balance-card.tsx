@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 
 import {clamp, formatNumber, reverseNumberFormat} from "@/core";
 import {Text, View} from '@/ui'
@@ -13,12 +13,15 @@ interface BalanceCardProps {
 }
 
 const BalanceCard = ({balance, amount, onBalanceLimitReached}: BalanceCardProps) => {
+    const isLimitReached=useRef(false)
 
     useEffect(() => {
         const parsedAmount = reverseNumberFormat(amount);
         if (parsedAmount > balance) {
-            onBalanceLimitReached();
+            //avoid multiple alert message
+            !isLimitReached && onBalanceLimitReached();
         }
+        isLimitReached.current=parsedAmount > balance
     }, [balance, amount, onBalanceLimitReached]);
     const formattedBalance = useMemo(() => {
         const newBalance = clamp(balance - reverseNumberFormat(amount), 0, balance)

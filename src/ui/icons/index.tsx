@@ -11,6 +11,7 @@ export * from './rate';
 export * from './settings';
 export * from './share';
 export * from './style';
+export * from './success-check';
 export * from './support';
 export * from './wallet-icon';
 export * from './website';

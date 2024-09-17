@@ -12,9 +12,10 @@ import ProfileSection from "@/components/profile-section";
 import {calculateMaxAllowance, formatNumber, useKeyboard} from "@/core";
 import {useAccount} from "@/core/account";
 import {OPERATION_MAX_VALUE} from "@/core/constants";
-import {Button, ControlledNumberInput, NumberPlaceholder, View} from '@/ui';
+import {Button, colors, ControlledNumberInput, NumberPlaceholder, View} from '@/ui';
 import {Currency} from "@/ui/icons";
-import {KeyboardGestureArea, useReanimatedKeyboardAnimation} from "react-native-keyboard-controller";
+import {KeyboardGestureArea} from "react-native-keyboard-controller";
+import {useRouter} from "expo-router";
 
 const schema = z.object({
     amount: z.string(),
@@ -22,6 +23,7 @@ const schema = z.object({
 type FormType = z.infer<typeof schema>;
 export default function SendMoney() {
     const balance = useAccount.use.balance()
+    const router = useRouter();
     const {control, handleSubmit, watch,setValue} = useForm<FormType>({
         resolver: zodResolver(schema),
     });
@@ -45,6 +47,7 @@ export default function SendMoney() {
     }));
     const onSubmit = (data: FormType) => {
         console.log(data);
+        router.push({ pathname: "/transaction-receipt/[amount]", params: { amount:data.amount  } });
     };
     const handleBalanceLimit=()=>{
         const maxAllowance = calculateMaxAllowance(balance)
@@ -69,7 +72,7 @@ export default function SendMoney() {
                             name={"amount"}
                             forceRTL={true}
                             placeHolderComponent={<NumberPlaceholder/>}
-                            rightAccessory={(size) => <Currency width={size} height={size}/>}
+                            rightAccessory={(size) => <Currency fill={colors.neutral[300]} width={size} height={size}/>}
                             keyboardType={'number-pad'}
                             maxValue={OPERATION_MAX_VALUE}
                             onMaxValueReached={()=>{
