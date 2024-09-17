@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { createSelectors } from '@/core';
+import {DEFAULT_BALANCE} from "@/core/constants";
 
 import { getToken, removeToken, setToken } from './utils';
 
@@ -14,7 +15,7 @@ interface AuthState {
 }
 
 const _useAccount = create<AuthState>((set, get) => ({
-  balance: 2500,
+  balance: DEFAULT_BALANCE,
   name: 'Foulen Fouleni',
   phone:'56565610',
   transfer: (amount) => {
@@ -23,7 +24,7 @@ const _useAccount = create<AuthState>((set, get) => ({
   },
   reset: () => {
     removeToken();
-    set({ balance: 2500 });
+    set({ balance: DEFAULT_BALANCE });
   },
   hydrate: () => {
     try {

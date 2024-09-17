@@ -13,7 +13,7 @@ const ToastMessage = ({message}:any) => {
 
             <View className="flex-row items-center gap-3 ">
                 <ErrorCross width={32} height={32}/>
-                <Text className="text-charocal-950 font-ubuntuMedium text-sm font-medium">{message?.message ?? '' }</Text>
+                <Text className="text-charcoal-950 font-ubuntuMedium text-sm font-medium">{message?.message ?? '' }</Text>
             </View>
 
             <Pressable onPress={()=>{}} className="">

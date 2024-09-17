@@ -1,10 +1,14 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { Cover } from '@/components/cover';
 import { Button, FocusAwareStatusBar, SafeAreaView, Text, View } from '@/ui';
+import {useAccount} from "@/core/account";
 export default function Onboarding() {
-
+    const resetBalance=useAccount().reset
+    useEffect(() => {
+        __DEV__ && resetBalance()
+    }, []);
   const router = useRouter();
   return (
     <View className="flex h-full items-center  justify-center">
